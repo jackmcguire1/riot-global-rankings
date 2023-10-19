@@ -4,6 +4,8 @@
 # About
 - This repository contains the API for the Global Power Rankings Hackathon sponsored by AWS x Riot
 
+Team rankings are based on accumulated wins and losses of tournament matches where the type is 'BestOf' and mode is 'Classic'.
+
 # Requirements
 - mongo ATLAS cluster
 - mongodb/brew/mongodb-database-tools
@@ -30,10 +32,6 @@
 6. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection leagues --type json --file leagues.json --jsonArray7.
 7. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection teams --type json --file teams.json --jsonArray
 8. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection players --type json --file players.json --jsonArray
-9. For games data execute the following for each possible file
-   10. > cd ../games/
-   11. > mongoimport --uri 'mongodb+srv://{ADDRESS}' --collection games --type json --file ESPORTSTMNT01_*.json --jsonArray
-
 
 # Relevant links
 - [Dev Post Hackathon](https://lolglobalpowerrankings.devpost.com/)
