@@ -1,1 +1,41 @@
 # riot-global-rankings
+> This repository is for the AWS x League Of Legends Hackathon - Global Power Rankings - LoL Esports Data
+
+# About
+- This repository contains the API for the Global Power Rankings Hackathon sponsored by AWS x Riot
+
+# Requirements
+- mongo ATLAS cluster
+- mongodb/brew/mongodb-database-tools
+- Python3
+- GO 1.21+
+- AWS SAM [lambda, API Gateway, etc]
+
+# SETUP
+- setup an MongoDB Atlas cluster https://www.mongodb.com/cloud/atlas/register
+- > go mod download
+
+## CLI tools
+>  brew install mongodb/brew/mongodb-database-tools
+
+>  brew install python
+
+## Import data to Mongo
+
+1. run ```python3 ./tools/get_riot_files.py```
+2. create a database on your MongoDB Atlas cluster called ```riot```
+3. > cd ./esports-data
+4. >mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection tournaments --type json --file tournaments.json --jsonArray
+5. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection mappings --type json --file mapping_data.json --jsonArray
+6. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection leagues --type json --file leagues.json --jsonArray7.
+7. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection teams --type json --file teams.json --jsonArray
+8. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection players --type json --file players.json --jsonArray
+9. For games data execute the following for each possible file
+   10. > cd ../games/
+   11. > mongoimport --uri 'mongodb+srv://{ADDRESS}' --collection games --type json --file ESPORTSTMNT01_*.json --jsonArray
+
+
+# Relevant links
+- [Dev Post Hackathon](https://lolglobalpowerrankings.devpost.com/)
+- [League Esports Data Guide](https://docs.google.com/document/d/1wFRehKMJkkRR5zyjEZyaVL9H3ZbhP7_wP0FBE5ID40c/edit)
+- [League Esports API GUIDE ](https://docs.google.com/document/d/1Klodp4YqE6bIOES026ecmNb_jS5IOntRqLv5EmDAXyc/edit)

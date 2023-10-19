@@ -1,0 +1,163 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        MONGO_HOST: !Ref MongoHost
+        MONGO_DATABASE: !Ref MongoDatabase
+        MONGO_TEAMS_COLLECTION: !Ref MongoTeamsCollection
+        MONGO_GAMES_COLLECTION: !Ref MongoGamesCollection
+        MONGO_MAPPINGS_COLLECTION: !Ref MongoMappingsCollection
+        MONGO_TOURNAMENTS_COLLECTION: !Ref MongoTournamentsCollection
+        MONGO_LEAGUES_COLLECTION: !Ref MongoLeaguesCollection
+        MONGO_PLAYERS_COLLECTION: !Ref MongoPlayersCollection
+    Timeout: 300
+
+Parameters:
+  MongoHost:
+    Type: String
+
+  MongoDatabase:
+    Type: String
+    Default: "riot"
+
+  MongoTeamsCollection:
+    Type: String
+    Default: "teams"
+
+  MongoMappingsCollection:
+    Type: String
+    Default: "mappings"
+
+  MongoLeaguesCollection:
+    Type: String
+    Default: "leagues"
+
+  MongoPlayersCollection:
+    Type: String
+    Default: "players"
+
+  MongoTournamentsCollection:
+    Type: String
+    Default: "tournaments"
+
+  MongoGamesCollection:
+    Type: String
+    Default: "tournaments"
+
+  Runtime:
+    Type: String
+    Default: "provided.al2"
+
+  Architecture:
+    Type: String
+    Default: "arm64"
+
+  Handler:
+    Type: String
+    Default: bootstrap
+
+Resources:
+  RiotRankingsHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: Prod
+      CorsConfiguration:
+        AllowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - '*'
+        AllowMethods:
+          - '*'
+        AllowOrigins:
+          - 'http://*'
+          - 'https://*'
+          - '*'
+
+  GlobalRankings:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: ./cmd/lambdas/global_rankings
+      Runtime: !Ref Runtime
+      Handler: !Ref Handler
+      Architectures:
+        - !Ref Architecture
+      Events:
+        GET:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref RiotRankingsHttpApi
+            Path: '/global_rankings'
+            Method: Get
+        OPTIONS:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref RiotRankingsHttpApi
+            Path: '/global_rankings'
+            Method: Options
+      Policies:
+      Tags:
+        FuncNameTag: !Sub ${AWS::StackName}-Global-Rankings
+      FunctionName: !Sub ${AWS::StackName}-Global-Rankings
+    Metadata:
+      BuildMethod: go1.x
+
+  TournamentRankings:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: ./cmd/lambdas/tournament_rankings
+      Runtime: !Ref Runtime
+      Handler: !Ref Handler
+      Architectures:
+        - !Ref Architecture
+      Events:
+        GET:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref RiotRankingsHttpApi
+            Path: '/tournament_rankings/{id}'
+            Method: Get
+        OPTIONS:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref RiotRankingsHttpApi
+            Path: '/tournament_rankings/{id}'
+            Method: Options
+      Policies:
+      Tags:
+        FuncNameTag: !Sub ${AWS::StackName}-Tournament-Rankings
+      FunctionName: !Sub ${AWS::StackName}-Tournament-Rankings
+    Metadata:
+      BuildMethod: go1.x
+
+
+  TeamRankings:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: ./cmd/lambdas/team_rankings
+      Runtime: !Ref Runtime
+      Handler: !Ref Handler
+      Architectures:
+        - !Ref Architecture
+      Events:
+        GET:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref RiotRankingsHttpApi
+            Path: '/team_rankings'
+            Method: Get
+        OPTIONS:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref RiotRankingsHttpApi
+            Path: '/team_rankings'
+            Method: Options
+      Policies:
+      Tags:
+        FuncNameTag: !Sub ${AWS::StackName}-Team-Rankings
+      FunctionName: !Sub ${AWS::StackName}-Team-Rankings
+    Metadata:
+      BuildMethod: go1.x
