@@ -20,5 +20,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - run: go test ./... -race -coverprofile=coverage.out -covermode=atomic
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
       - run: sam build
       - run: sam deploy sam deploy --s3-bucket ${{ secrets.DEPLOY_BUCKET }} --stack-name riot-rankings --capabilities CAPABILITY_IAM --parameter-overrides MongoHost=${{ secrets.MONGO_HOST }}
