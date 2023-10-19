@@ -1,10 +1,13 @@
 # riot-global-rankings
 > This repository is for the AWS x League Of Legends Hackathon - Global Power Rankings - LoL Esports Data
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/jackmcguire1/riot-global-rankings)](https://goreportcard.com/report/github.com/jackmcguire1/riot-global-rankings)
+[![codecov](https://codecov.io/gh/jackmcguire1/riot-global-rankings/graph/badge.svg?token=CWCV1WAKMM)](https://codecov.io/gh/jackmcguire1/riot-global-rankings)
 # About
 - This repository contains the API for the Global Power Rankings Hackathon sponsored by AWS x Riot
 
-Team rankings are based on accumulated wins and losses of tournament matches where the type is 'BestOf' and mode is 'Classic'.
+
+- Team rankings are based on accumulated wins and losses of tournament matches where the type is 'BestOf' and mode is 'Classic'.
 
 # Requirements
 - mongo ATLAS cluster
