@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/awslabs/aws-lambda-go-api-proxy/core"
 	"github.com/gorilla/mux"
-	"github.com/jackmcguire1/riot-rankings/internal/utils"
+	"github.com/jackmcguire1/riot-global-rankings/internal/utils"
 )
 
 type GorillaMuxAdapterV2 struct {

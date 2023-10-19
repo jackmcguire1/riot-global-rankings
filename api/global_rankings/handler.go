@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jackmcguire1/riot-rankings/api"
-	"github.com/jackmcguire1/riot-rankings/dom/riot"
-	"github.com/jackmcguire1/riot-rankings/internal/utils"
+	"github.com/jackmcguire1/riot-global-rankings/api"
+	"github.com/jackmcguire1/riot-global-rankings/dom/riot"
+	"github.com/jackmcguire1/riot-global-rankings/internal/utils"
 )
 
 type Handler struct {

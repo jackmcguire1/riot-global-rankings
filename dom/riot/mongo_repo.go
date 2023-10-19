@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/jackmcguire1/riot-rankings/internal/utils"
+	"github.com/jackmcguire1/riot-global-rankings/internal/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

@@ -9,8 +9,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/jackmcguire1/riot-rankings/api"
-	"github.com/jackmcguire1/riot-rankings/dom/riot"
+	"github.com/jackmcguire1/riot-global-rankings/api"
+	"github.com/jackmcguire1/riot-global-rankings/dom/riot"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

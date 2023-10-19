@@ -7,9 +7,9 @@ import (
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gorilla/mux"
-	"github.com/jackmcguire1/riot-rankings/api/global_rankings"
-	"github.com/jackmcguire1/riot-rankings/dom/riot"
-	"github.com/jackmcguire1/riot-rankings/internal/sm_mux"
+	"github.com/jackmcguire1/riot-global-rankings/api/global_rankings"
+	"github.com/jackmcguire1/riot-global-rankings/dom/riot"
+	"github.com/jackmcguire1/riot-global-rankings/internal/sm_mux"
 )
 
 func main() {
