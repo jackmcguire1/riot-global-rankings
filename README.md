@@ -10,7 +10,7 @@
 - Team rankings are based on accumulated wins and losses of tournament matches where the type is 'BestOf' and mode is 'Classic'.
 
 # Requirements
-- mongo ATLAS cluster
+- MongoDB ATLAS cluster - AWS - US-EAST-1
 - mongodb/brew/mongodb-database-tools
 - Python3
 - GO 1.21+
