@@ -25,6 +25,9 @@
 ## CLI tools
 >  brew install mongodb/brew/mongodb-database-tools
 
+## Swagger
+ Copy the contents of ./swagger.yml to [Swagger Editor](https://editor-next.swagger.io/) and begin invoking the Serverless API endpoints.
+
 ## Run With Docker
 > docker-compose up -d
 
