@@ -3,7 +3,7 @@ info:
   title: Tournament and Team Rankings API
   version: 1.0.0
 servers:
-  - url: http://localhost:7755/
+  - url: https://jl6pbvlttd.execute-api.us-east-1.amazonaws.com/Prod
 paths:
   /tournament_rankings/{tournament_id}:
     get:
