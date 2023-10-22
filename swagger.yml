@@ -15,6 +15,7 @@ paths:
           required: true
           schema:
             type: string
+          default: "110825936250664572"
         - name: stage
           in: query
           description: Stage of tournament to return rankings for
@@ -93,6 +94,7 @@ paths:
             type: array
             items:
               type: string
+          default: "100205573495116443,104710343016706538,108159996371573462"
       responses:
         200:
           description: Successful response
