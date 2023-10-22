@@ -44,7 +44,7 @@ func (h *Handler) GetGlobalRankings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var apiResponse []*api.TeamResponse
+	var apiResponse = []*api.TeamResponse{}
 	for _, team := range teams {
 		apiResponse = append(apiResponse, &api.TeamResponse{
 			TeamID:      team.TeamID,

@@ -352,6 +352,10 @@ func (repo *MongoRepository) CalculateGlobalRankings(teamIDs []string, limit int
 		}
 	}
 
+	if len(teamRankings) == 0 {
+		return []*TeamRanking{}, nil
+	}
+
 	if len(teamIDs) > 0 {
 		var results []*TeamRanking
 		for _, teamID := range teamIDs {

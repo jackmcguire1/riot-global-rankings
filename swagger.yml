@@ -1,0 +1,148 @@
+openapi: 3.0.1
+info:
+  title: Tournament and Team Rankings API
+  version: 1.0.0
+servers:
+  - url: http://localhost:7755/
+paths:
+  /tournament_rankings/{tournament_id}:
+    get:
+      summary: Get Tournament Rankings
+      parameters:
+        - name: tournament_id
+          in: path
+          description: ID of tournament to return rankings for
+          required: true
+          schema:
+            type: string
+        - name: stage
+          in: query
+          description: Stage of tournament to return rankings for
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+            application/json:
+              example:
+                TeamID: "123"
+                TeamCode: TEAM1
+                TeamName: Team 1
+                Rank: 1
+        400:
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              example:
+                error: invalid tournament id path parameter
+  /global_rankings:
+    get:
+      summary: Get Global Rankings
+      parameters:
+        - name: number_of_teams
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamResponse'
+            application/json:
+              example:
+                - TeamID: "123"
+                  TeamCode: TEAM1
+                  TeamName: Team 1
+                  Rank: 1
+                - TeamID: "124"
+                  TeamCode: TEAM2
+                  TeamName: Team 2
+                  Rank: 2
+        400:
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              example:
+                error: HTTP METHOD not supported
+  /team_rankings:
+    get:
+      summary: Get Team Rankings
+      parameters:
+        - name: team_ids
+          in: query
+          description: IDs of tournaments to return ranking for
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamResponse'
+            application/json:
+              example:
+                - TeamID: "123"
+                  TeamCode: TEAM1
+                  TeamName: Team 1
+                  Rank: 1
+                - TeamID: "124"
+                  TeamCode: TEAM2
+                  TeamName: Team 2
+                  Rank: 2
+        400:
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              example:
+                error: invalid team_ids query parameter expected list of ids seperated
+                  by ','
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+    TeamResponse:
+      type: object
+      properties:
+        TeamID:
+          type: string
+        TeamCode:
+          type: string
+        TeamName:
+          type: string
+        Rank:
+          type: integer
+        TotalWins:
+          type: integer
+        TotalLosses:
+          type: integer
+        TotalTies:
+          type: integer
