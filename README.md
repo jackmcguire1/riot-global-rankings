@@ -15,6 +15,8 @@
 - Python3
 - GO 1.21+
 - AWS SAM [lambda, API Gateway, etc]
+- Docker Desktop 4.24+
+- Docker Compose 2.22.0+
 
 # SETUP
 - setup an MongoDB Atlas cluster https://www.mongodb.com/cloud/atlas/register
@@ -23,7 +25,10 @@
 ## CLI tools
 >  brew install mongodb/brew/mongodb-database-tools
 
->  brew install python
+## Run With Docker
+> docker-compose up -d
+
+> docker compose watch
 
 ## Import data to Mongo
 
