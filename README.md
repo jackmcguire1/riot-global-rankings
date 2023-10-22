@@ -27,7 +27,7 @@
 
 ## Swagger
  Copy the contents of ./swagger.yml to [Swagger Editor](https://editor-next.swagger.io/) and begin invoking the Serverless API endpoints.
-
+> https://app.swaggerhub.com/apis/jackmcguire1/Riot-Global-Rankings/1.0.1
 ## Run With Docker
 > docker-compose up -d
 

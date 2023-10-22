@@ -1,12 +1,14 @@
-openapi: 3.0.1
+openapi: '3.0.1'
 info:
-  title: Tournament and Team Rankings API
-  version: 1.0.0
+  title: Riot Global Rankings
+  version: 1.0.1
 servers:
   - url: https://jl6pbvlttd.execute-api.us-east-1.amazonaws.com/Prod
 paths:
   /tournament_rankings/{tournament_id}:
     get:
+      tags:
+        - Tournament Rankings
       summary: Get Tournament Rankings
       parameters:
         - name: tournament_id
@@ -15,14 +17,14 @@ paths:
           required: true
           schema:
             type: string
-          default: "110825936250664572"
+          default: '110825936250664572'
         - name: stage
           in: query
           description: Stage of tournament to return rankings for
           schema:
             type: string
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             '*/*':
@@ -30,11 +32,11 @@ paths:
                 $ref: '#/components/schemas/TeamResponse'
             application/json:
               example:
-                TeamID: "123"
+                TeamID: '123'
                 TeamCode: TEAM1
                 TeamName: Team 1
                 Rank: 1
-        400:
+        '400':
           description: Bad request
           content:
             '*/*':
@@ -45,6 +47,8 @@ paths:
                 error: invalid tournament id path parameter
   /global_rankings:
     get:
+      tags:
+        - Global Rankings
       summary: Get Global Rankings
       parameters:
         - name: number_of_teams
@@ -53,7 +57,7 @@ paths:
             type: integer
             default: 20
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             '*/*':
@@ -63,15 +67,15 @@ paths:
                   $ref: '#/components/schemas/TeamResponse'
             application/json:
               example:
-                - TeamID: "123"
+                - TeamID: '123'
                   TeamCode: TEAM1
                   TeamName: Team 1
                   Rank: 1
-                - TeamID: "124"
+                - TeamID: '124'
                   TeamCode: TEAM2
                   TeamName: Team 2
                   Rank: 2
-        400:
+        '400':
           description: Bad request
           content:
             '*/*':
@@ -82,6 +86,8 @@ paths:
                 error: HTTP METHOD not supported
   /team_rankings:
     get:
+      tags:
+        - Team Rankings
       summary: Get Team Rankings
       parameters:
         - name: team_ids
@@ -94,9 +100,9 @@ paths:
             type: array
             items:
               type: string
-          default: "100205573495116443,104710343016706538,108159996371573462"
+          default: 100205573495116443,104710343016706538,108159996371573462
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             '*/*':
@@ -106,15 +112,15 @@ paths:
                   $ref: '#/components/schemas/TeamResponse'
             application/json:
               example:
-                - TeamID: "123"
+                - TeamID: '123'
                   TeamCode: TEAM1
                   TeamName: Team 1
                   Rank: 1
-                - TeamID: "124"
+                - TeamID: '124'
                   TeamCode: TEAM2
                   TeamName: Team 2
                   Rank: 2
-        400:
+        '400':
           description: Bad request
           content:
             '*/*':
@@ -122,8 +128,9 @@ paths:
                 $ref: '#/components/schemas/ApiError'
             application/json:
               example:
-                error: invalid team_ids query parameter expected list of ids seperated
-                  by ','
+                error: >-
+                  invalid team_ids query parameter expected list of ids
+                  seperated by ','
 components:
   schemas:
     ApiError:
