@@ -9,6 +9,9 @@
 
 - Team rankings are based on accumulated wins and losses of tournament matches where the type is 'BestOf' and mode is 'Classic'.
 
+# Devpost Project Submission
+> https://devpost.com/software/riot-rankings
+
 # Requirements
 - MongoDB ATLAS cluster - AWS - US-EAST-1
 - mongodb/brew/mongodb-database-tools
@@ -45,6 +48,7 @@
 8. > mongoimport --uri 'mongodb+srv://{ADDRESSS}' --collection players --type json --file players.json --jsonArray
 
 # Relevant links
+- [Devpost Project Submission](https://devpost.com/software/riot-rankings)
 - [Dev Post Hackathon](https://lolglobalpowerrankings.devpost.com/)
 - [League Esports Data Guide](https://docs.google.com/document/d/1wFRehKMJkkRR5zyjEZyaVL9H3ZbhP7_wP0FBE5ID40c/edit)
 - [League Esports API GUIDE ](https://docs.google.com/document/d/1Klodp4YqE6bIOES026ecmNb_jS5IOntRqLv5EmDAXyc/edit)
