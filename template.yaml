@@ -60,104 +60,29 @@ Parameters:
     Default: bootstrap
 
 Resources:
-  RiotRankingsHttpApi:
-    Type: AWS::Serverless::HttpApi
-    Properties:
-      StageName: Prod
-      CorsConfiguration:
-        AllowHeaders:
-          - Authorization
-          - Content-Type
-          - Accept
-          - '*'
-        AllowMethods:
-          - '*'
-        AllowOrigins:
-          - 'http://*'
-          - 'https://*'
-          - '*'
-
-  GlobalRankings:
+  Api:
     Type: 'AWS::Serverless::Function'
     Properties:
-      CodeUri: ./cmd/lambdas/global_rankings
+      CodeUri: ./cmd/api/
       Runtime: !Ref Runtime
       Handler: !Ref Handler
+      Environment:
+        Variables:
+          MONGO_HOST: !Ref MongoHost
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
+          AWS_LWA_READINESS_CHECK_PATH: "/status"
+          LISTEN_HOST: "localhost"
+          LISTEN_PORT: "8080"
+      Layers:
+        - !Sub arn:aws:lambda:${AWS::Region}:753240598075:layer:LambdaAdapterLayerArm64:20
       Architectures:
         - !Ref Architecture
       Events:
-        GET:
+        ApiEvent:
           Type: HttpApi
-          Properties:
-            ApiId: !Ref RiotRankingsHttpApi
-            Path: '/global_rankings'
-            Method: Get
-        OPTIONS:
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref RiotRankingsHttpApi
-            Path: '/global_rankings'
-            Method: Options
       Policies:
       Tags:
-        FuncNameTag: !Sub ${AWS::StackName}-Global-Rankings
-      FunctionName: !Sub ${AWS::StackName}-Global-Rankings
-    Metadata:
-      BuildMethod: go1.x
-
-  TournamentRankings:
-    Type: 'AWS::Serverless::Function'
-    Properties:
-      CodeUri: ./cmd/lambdas/tournament_rankings
-      Runtime: !Ref Runtime
-      Handler: !Ref Handler
-      Architectures:
-        - !Ref Architecture
-      Events:
-        GET:
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref RiotRankingsHttpApi
-            Path: '/tournament_rankings/{id}'
-            Method: Get
-        OPTIONS:
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref RiotRankingsHttpApi
-            Path: '/tournament_rankings/{id}'
-            Method: Options
-      Policies:
-      Tags:
-        FuncNameTag: !Sub ${AWS::StackName}-Tournament-Rankings
-      FunctionName: !Sub ${AWS::StackName}-Tournament-Rankings
-    Metadata:
-      BuildMethod: go1.x
-
-
-  TeamRankings:
-    Type: 'AWS::Serverless::Function'
-    Properties:
-      CodeUri: ./cmd/lambdas/team_rankings
-      Runtime: !Ref Runtime
-      Handler: !Ref Handler
-      Architectures:
-        - !Ref Architecture
-      Events:
-        GET:
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref RiotRankingsHttpApi
-            Path: '/team_rankings'
-            Method: Get
-        OPTIONS:
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref RiotRankingsHttpApi
-            Path: '/team_rankings'
-            Method: Options
-      Policies:
-      Tags:
-        FuncNameTag: !Sub ${AWS::StackName}-Team-Rankings
-      FunctionName: !Sub ${AWS::StackName}-Team-Rankings
+        FuncNameTag: !Sub ${AWS::StackName}-API
+      FunctionName: !Sub ${AWS::StackName}-API
     Metadata:
       BuildMethod: go1.x

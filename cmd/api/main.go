@@ -8,8 +8,10 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/jackmcguire1/riot-global-rankings/api/global_rankings"
+	"github.com/jackmcguire1/riot-global-rankings/api/healthcheck"
 	"github.com/jackmcguire1/riot-global-rankings/api/team_rankings"
 	"github.com/jackmcguire1/riot-global-rankings/api/tournament_rankings"
 	"github.com/jackmcguire1/riot-global-rankings/dom/riot"
@@ -44,8 +46,16 @@ func main() {
 		panic(err)
 	}
 
+	healthCheckH := &healthcheck.HealthCheckHandler{
+		LogVerbosity: "",
+		StartTime:    time.Now().UTC(),
+		Logger:       logger,
+	}
+
 	riotSvc := riot.NewService(&riot.Resources{Repository: riotRepo})
 	r := http.NewServeMux()
+
+	r.Handle("/status", healthCheckH)
 
 	globalRankingHandler := global_rankings.Handler{
 		RiotSvc: riotSvc,
